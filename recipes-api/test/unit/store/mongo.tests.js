@@ -4,7 +4,7 @@ const system = require('../../../system');
 const configSystem = require('../../../components/config');
 const recipe = require('../../../fixtures/recipe_sample.json');
 
-describe('In memory store', () => {
+describe('Mongo store', () => {
 
   let myStore;
   let sys;
@@ -17,7 +17,7 @@ describe('In memory store', () => {
   before(done => {
     configSystem.start((err, { config }) => {
       if (err) return done(err);
-      myConfig = R.merge(config, { store: 'in-memory' });
+      myConfig = R.merge(config, { store: 'mongo' });
       sys = system(mockFn).start((err, { store }) => {
         if (err) return done(err);
         myStore = store;
@@ -53,8 +53,8 @@ describe('In memory store', () => {
     const lowerVersion = 1;
     const update = R.merge(recipe, { version: lowerVersion });
     return myStore.saveRecipe(recipe)
-      .then(() => myStore.saveRecipe(update))
-      .then(() => myStore.getRecipe(recipe.id))
+      .then((saved) => myStore.saveRecipe(update))
+      .then((update) => myStore.getRecipe(recipe.id))
       .then((saved) => expect(saved.version).to.eql(recipe.version))
   });
 
