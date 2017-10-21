@@ -56,7 +56,8 @@
     "systemic-domain-runner": "^1.1.0",
     "systemic-express": "^1.0.1",
     "systemic-mongodb": "^1.0.4",
-    "systemic-pg": "^1.0.6"
+    "systemic-pg": "^1.2.0",
+    "systemic-rabbitmq": "^1.0.1"
   },
   "repository": {
     "type": "git",
