@@ -21,7 +21,8 @@ before_install:
   - SERVICE=$SERVICE make ensure-dependencies
 
 script:
-  - npm run test
+  - echo $SERVICE_ENV
+  - make qa
 
 matrix:
   include:
