@@ -1,23 +1,13 @@
 module.exports = {
-  logger: {
-    transport: 'sumo'
-  },
   mongo: {
-    url: process.env.MONGO_URL || 'mongodb://mongo:27017/ysojkvfe'
-  },
-  store: {
-    idGenerator: {
-      host: 'http://recipes-id-generator:3002',
-    }
+    url: 'mongodb://mongo:27017/recipes'
   },
   rabbitmq: {
     defaults: {},
     vhosts: {
-      ysojkvfe: {
+      recipes: {
         connection: {
-          hostname: 'swan.rmq.cloudamqp.com',
-          user: 'ysojkvfe',
-          password: process.env.RABBIT_PWD || 'N/A'
+          hostname: 'rabbitmq'
         }
       }
     }
