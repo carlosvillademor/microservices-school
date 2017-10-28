@@ -19,10 +19,11 @@ before_install:
   - nvm use
   - node --version
   - SERVICE=$SERVICE make ensure-dependencies
+  - docker ps
+  - sleep 3
 
 script:
-  - echo $SERVICE_ENV
-  - make qa
+  - npm run test
 
 matrix:
   include:
