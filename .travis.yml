@@ -18,6 +18,7 @@ before_install:
 - nvm use
 - node --version
 - SERVICE=$SERVICE make ensure-dependencies
+- sleep 3
 script:
 - make qa
 - TRAVIS_BUILD_ID=$TRAVIS_BUILD_ID TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER make brand
