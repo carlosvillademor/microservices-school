@@ -1,36 +1,27 @@
 sudo: false
-
 cache: yarn
-
 language: node_js
-
 env:
   global:
   - NODE_ENV='test'
-
 branches:
   only:
   - master
-  - devops_module
-
 before_install:
-  - cd ./$SERVICE
-  - nvm install
-  - nvm use
-  - node --version
-  - SERVICE=$SERVICE make ensure-dependencies
-  - docker ps
-  - sleep 3
-
+- cd ./$SERVICE
+- nvm install
+- nvm use
+- node --version
+- SERVICE=$SERVICE make ensure-dependencies
 script:
-  - make qa
-  - TRAVIS_BUILD_ID=$TRAVIS_BUILD_ID TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER make brand
-
+- make qa
+- TRAVIS_BUILD_ID=$TRAVIS_BUILD_ID TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER make brand
+- DOCKER_USERNAME=$DOCKER_USERNAME DOCKER_PASSWORD=$DOCKER_PASSWORD SERVICE=$SERVICE TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER make build
 matrix:
   include:
-    - env: SERVICE=recipes-api
-      services:
-        - docker
-    - env: SERVICE=recipes-crawler
-      services:
-        - docker
+  - env: SERVICE=recipes-api
+    services:
+    - docker
+  - env: SERVICE=recipes-crawler
+    services:
+    - docker
